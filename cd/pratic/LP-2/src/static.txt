@@ -1,0 +1,58 @@
+PART 7 — Install Nginx
+sudo apt install nginx -y
+
+Start Nginx:
+
+sudo systemctl start nginx
+
+Enable at boot:
+
+sudo systemctl enable nginx
+PART 8 — Remove Default Website
+sudo rm -rf /var/www/html/*
+PART 9 — Copy React Build Files
+
+If build folder is:
+
+dist
+
+Run:
+
+sudo cp -r dist/* /var/www/html/
+
+If folder is:
+
+build
+
+Run:
+
+sudo cp -r build/* /var/www/html/
+PART 10 — Configure Nginx for React Routing
+
+Open config:
+
+sudo nano /etc/nginx/sites-available/default
+
+Replace contents with:
+
+server {
+    listen 80;
+    server_name _;
+
+    root /var/www/html;
+    index index.html;
+
+    location / {
+        try_files $uri /index.html;
+    }
+}
+
+Save:
+
+CTRL + O
+ENTER
+CTRL + X
+
+Restart Nginx:
+
+sudo systemctl restart nginx 

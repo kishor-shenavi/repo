@@ -1,0 +1,32 @@
+public class EmailSender {
+    public static void sendEmail(){
+        Messaging.EmailFileAttachment attach = new Messaging.EmailFileAttachment();
+        attach.setFileName('file.txt');
+        attach.setBody(Blob.valueOf('File written from console'));
+        
+        
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        mail.setToAddresses(
+            new String[] {'abc@gmail.com'}
+        );
+        mail.setSubject('Console-based Email sending');
+        mail.setPlainTextBody('Hello How are you ?');
+        
+        mail.setFileAttachments(
+            new Messaging.EmailFileAttachment[] {attach}
+        );
+        mail.setCcAddresses(
+            new String[] {'xyz@gmail.com'}
+        );
+        
+        Messaging.sendEmail(
+            new Messaging.SingleEmailMessage[] {mail}
+        );
+        
+        System.debug('Email Sent Successfully');
+	}
+}
+
+
+
+// And then on Anonymous window - Execute:-> EmailSender.sendEmail();

@@ -1,0 +1,105 @@
+public class CollegeController {
+    
+    public Faculty__c faculty {get; set;}
+    public Student__c student {get; set;}
+    
+    public List<Student__c> studentList {get; set;}
+    public List<Faculty__c> facultyList {get; set;}
+    public String msg {get; set;}   
+    
+    public CollegeController() {
+        faculty = new Faculty__c();
+        student = new Student__c();
+        studentList = [SELECT Roll_Number__c, Name, Email__c, Marks__c FROM Student__c];
+        facultyList = [SELECT Faculty_ID__c, Name, Department__c, Salary__c, Joining_Date__c FROM Faculty__c];
+    }
+    
+    // Student
+    public void insertStudent() {
+        try{
+            student.Id = null;
+            insert student;
+            
+            student = new Student__c();
+        	studentList = [SELECT Roll_Number__c, Name, Email__c, Marks__c FROM Student__c];
+        	msg = 'Inserted Successfully!';            
+            
+        }catch(Exception e) {
+            msg = 'Error: '+e.getMessage();
+        }
+    }
+    
+     public void updateStudent() {
+        try{
+            update student;
+            
+            student = new Student__c();
+        	studentList = [SELECT Roll_Number__c, Name, Email__c, Marks__c FROM Student__c];
+        	msg = 'Updated Successfully!';   
+            
+        }catch(Exception e) {
+            msg = 'Error: '+e.getMessage();
+        }
+    }
+    
+     public void deleteStudent() {
+        try{
+            delete [SELECT Id FROM Student__c WHERE Id = :student.Id];
+            msg = 'Record deleted successfully';
+            
+        }catch(Exception e) {
+            msg = 'Error: '+e.getMessage();
+        }
+    }
+    
+    public void editStudent(){
+        student = [SELECT Roll_Number__c, Name, Email__c, Marks__c FROM Student__c WHERE Id = :student.Id];
+    	msg = 'Editing Student Record...';
+    }
+    
+    
+    // Faculty
+
+	public void insertFaculty() {
+        try{
+            faculty.Id = null;
+            insert faculty;
+            
+            faculty = new Faculty__c();
+            facultyList = [SELECT Faculty_ID__c, Name, Department__c, Salary__c, Joining_Date__c FROM Faculty__c];
+            msg = 'Faculty Record Inserted Successfully';
+            
+        }catch(Exception e) {
+            msg = 'Error: '+e.getMessage();
+        }
+    }
+    
+     public void updateFaculty() {
+        try{
+            update faculty;
+            
+            faculty = new Faculty__c();
+            facultyList = [SELECT Faculty_ID__c, Name, Department__c, Salary__c, Joining_Date__c FROM Faculty__c];
+            msg = 'Faculty Record Inserted Successfully';
+            
+        }catch(Exception e) {
+            msg = 'Error: '+e.getMessage();
+        }
+    }
+    
+     public void deleteFaculty() {
+        try{
+            delete [SELECT Id FROM Faculty__c WHERE Id = :faculty.Id];
+            facultyList = [SELECT Faculty_ID__c, Name, Department__c, Salary__c, Joining_Date__c FROM Faculty__c];
+            msg = 'Faculty Record Deleted Successfully';
+            
+        }catch(Exception e) {
+            msg = 'Error: '+e.getMessage();
+        }
+    }
+    
+    public void editFaculty(){
+        faculty = [SELECT Faculty_ID__c, Name, Department__c, Salary__c, Joining_Date__c FROM Faculty__c WHERE Id = :faculty.Id];
+   		msg = 'Editing Faculty Record...';
+    }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "noded-library",
+  "version": "1.0.6",
+  "description": "Collection of C++ and Apex programs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests yet\""
+  },
+  "keywords": [
+    "cpp",
+    "apex",
+    "salesforce",
+    "dsa"
+  ],
+  "author": "Pratik Chavan",
+  "license": "MIT",
+  "type": "commonjs"
+}

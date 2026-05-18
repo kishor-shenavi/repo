@@ -1,0 +1,30 @@
+:root {
+  --amazon-blue: #131921;
+  --amazon-light-blue: #232f3e;
+  --amazon-orange: #febd69;
+  --amazon-orange-hover: #f3a847;
+  --background-gray: #eaeded;
+  --text-color: #111;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-gray);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+h1, h2, h3 {
+  color: #111;
+}

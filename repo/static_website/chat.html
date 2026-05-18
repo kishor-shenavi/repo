@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NexaBank Bot</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="header">
+        <h3>NexaBank Bot</h3>
+    </div>
+
+    <div id="chat" class="chat-box">
+
+        <div class="bot-message">
+            Hello 👋 Welcome to NexaBank
+        </div>
+
+    </div>
+
+    <div class="button-area">
+        <button onclick="reply('balance')">Balance</button>
+        <button onclick="reply('transactions')">Transactions</button>
+        <button onclick="deposit()">Deposit</button>
+        <button onclick="withdrawMoney()">Withdraw</button>
+    </div>
+
+    <div class="input-area">
+
+        <input id="text"
+               placeholder="Type message">
+
+        <button onclick="send()" class="send-btn">
+            Send
+        </button>
+
+    </div>
+
+<script>
+
+let balance = 42580;
+
+let transactions = [
+    "Amazon - ₹2300",
+    "Swiggy - ₹450",
+    "Salary + ₹85000"
+];
+
+function add(text,type){
+
+    let messageClass = type == 'user'
+        ? 'user-message'
+        : 'bot-message';
+
+    chat.innerHTML += `
+        <div class="${messageClass}">
+            ${text}
+        </div>
+    `;
+
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function bot(msg){
+
+    msg = msg.toLowerCase();
+
+    if(msg.includes('balance')){
+        return `Balance: ₹${balance}`;
+    }
+
+    if(msg.includes('transactions')){
+
+        let last3 = transactions.slice(-3).reverse();
+
+        return `
+            Last 3 Transactions:<br><br>
+            ${last3.join("<br>")}
+        `;
+    }
+
+    return "Ask about balance or transactions";
+}
+
+function reply(text){
+
+    add(text,'user');
+
+    setTimeout(()=>{
+        add(bot(text),'bot');
+    },300);
+}
+
+function send(){
+
+    let input = document.getElementById('text');
+
+    if(input.value=="") return;
+
+    reply(input.value);
+
+    input.value="";
+}
+
+function deposit(){
+
+    let amt = prompt("Enter deposit amount");
+
+    if(!amt) return;
+
+    balance += Number(amt);
+
+    transactions.push(`Deposit + ₹${amt}`);
+
+    add(`Deposit ₹${amt}`,'user');
+
+    add(`New Balance: ₹${balance}`,'bot');
+}
+
+function withdrawMoney(){
+
+    let amt = prompt("Enter withdrawal amount");
+
+    if(!amt) return;
+
+    if(amt > balance){
+
+        add(`Withdraw ₹${amt}`,'user');
+
+        add("Insufficient Balance",'bot');
+
+    }else{
+
+        balance -= Number(amt);
+
+        transactions.push(`Withdraw - ₹${amt}`);
+
+        add(`Withdraw ₹${amt}`,'user');
+
+        add(`New Balance: ₹${balance}`,'bot');
+    }
+}
+
+</script>
+
+</body>
+</html>

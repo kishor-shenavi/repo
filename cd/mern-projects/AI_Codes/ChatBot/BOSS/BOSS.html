@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La Bella Cucina – Fine Italian Dining</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ============================================
+       CSS VARIABLES – Easy to customise colours
+    ============================================ */
+    :root {
+      --red:    #8B0000;
+      --gold:   #C9A84C;
+      --cream:  #FDF6EC;
+      --dark:   #1C0A00;
+      --text:   #3D2B1F;
+      --muted:  #7A6050;
+      --white:  #FFFFFF;
+      --border: #E8D5B7;
+      --shadow: 0 4px 24px rgba(139,0,0,0.10);
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+    }
+
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+    /* ============================================
+       NAVBAR
+    ============================================ */
+    nav {
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    .logo span { color: var(--white); font-weight: 300; }
+
+    .nav-links { display: flex; gap: 8px; }
+
+    .nav-links button {
+      background: none;
+      border: none;
+      color: #ccc;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      padding: 8px 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-transform: uppercase;
+    }
+
+    .nav-links button:hover { color: var(--gold); background: rgba(201,168,76,0.10); }
+
+    .nav-links button.active {
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+      border-radius: 0;
+    }
+
+    /* ============================================
+       PAGE SECTIONS – show/hide trick
+    ============================================ */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ============================================
+       HOME PAGE
+    ============================================ */
+    .hero {
+      position: relative;
+      height: 88vh;
+      background: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(28,10,0,0.55), rgba(28,10,0,0.75));
+    }
+
+    .hero-content { position: relative; z-index: 2; color: var(--white); max-width: 700px; padding: 0 24px; }
+
+    .hero-content h1 { font-size: 3.8rem; color: var(--gold); line-height: 1.15; }
+    .hero-content p { font-size: 1.1rem; margin: 18px 0 32px; color: rgba(255,255,255,0.85); font-weight: 300; }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .btn-gold { background: var(--gold); color: var(--dark); }
+    .btn-gold:hover { background: #b8923e; transform: translateY(-2px); }
+    .btn-outline { background: transparent; border: 2px solid var(--gold); color: var(--gold); margin-left: 12px; }
+    .btn-outline:hover { background: var(--gold); color: var(--dark); }
+
+    /* Section title */
+    .section-title { text-align: center; margin-bottom: 48px; }
+    .section-title h2 { font-size: 2.4rem; color: var(--red); }
+    .section-title p { color: var(--muted); margin-top: 8px; font-size: 0.95rem; }
+    .divider { width: 64px; height: 3px; background: var(--gold); margin: 12px auto 0; border-radius: 2px; }
+
+    /* Why Choose Us */
+    .features { background: var(--white); padding: 72px 48px; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: 36px 24px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--cream);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+
+    .feature-icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 1.15rem; color: var(--red); margin-bottom: 10px; }
+    .feature-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+    /* Gallery */
+    .gallery { padding: 72px 48px; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.35s;
+    }
+
+    .gallery-grid img:hover { transform: scale(1.03); }
+
+    /* ============================================
+       MENU PAGE
+    ============================================ */
+    .menu-page { padding: 64px 48px; }
+
+    .menu-category { max-width: 860px; margin: 0 auto 56px; }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .category-header h3 {
+      font-size: 1.6rem;
+      color: var(--red);
+      white-space: nowrap;
+    }
+
+    .category-line { flex: 1; height: 1px; background: var(--border); }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 18px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .menu-item:last-child { border-bottom: none; }
+
+    .menu-info h4 { font-size: 1.05rem; color: var(--dark); margin-bottom: 4px; }
+    .menu-info p { font-size: 0.83rem; color: var(--muted); max-width: 500px; }
+
+    .menu-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold);
+      white-space: nowrap;
+      margin-left: 24px;
+    }
+
+    /* ============================================
+       OFFERS PAGE
+    ============================================ */
+    .offers-page { padding: 64px 48px; }
+
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .offer-card {
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .offer-banner {
+      background: var(--red);
+      color: var(--gold);
+      text-align: center;
+      padding: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .offer-body { padding: 24px; }
+    .offer-body h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 10px; }
+    .offer-body p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
+
+    .offer-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 0.78rem;
+      padding: 5px 14px;
+      border-radius: 50px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ============================================
+       CONTACT PAGE
+    ============================================ */
+    .contact-page { padding: 64px 48px; }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 48px;
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .contact-info h3 { font-size: 1.5rem; color: var(--red); margin-bottom: 20px; }
+
+    .info-row {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .info-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .info-row h4 { font-size: 0.88rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .info-row p { font-size: 0.95rem; color: var(--dark); line-height: 1.6; }
+
+    .contact-form { background: var(--white); padding: 36px; border-radius: 14px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .contact-form h3 { font-size: 1.5rem; color: var(--red); margin-bottom: 24px; }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label { display: block; font-size: 0.83rem; font-weight: 600; color: var(--text); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.92rem;
+      color: var(--text);
+      background: var(--cream);
+      outline: none;
+      transition: border-color 0.25s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--gold); }
+
+    .form-group textarea { height: 110px; resize: vertical; }
+
+    .submit-btn {
+      background: var(--red);
+      color: var(--white);
+      padding: 13px 32px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      width: 100%;
+      letter-spacing: 0.5px;
+      transition: background 0.3s;
+    }
+
+    .submit-btn:hover { background: #6a0000; }
+
+    /* ============================================
+       CHATBOT PAGE
+    ============================================ */
+    .help-page { padding: 64px 48px; }
+
+    .chatbot-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(139,0,0,0.15);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: var(--red);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .bot-avatar {
+      width: 48px; height: 48px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .chat-header-info h3 { color: var(--white); font-size: 1.1rem; }
+    .chat-header-info p { color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-top: 2px; }
+
+    .online-dot { display: inline-block; width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; margin-right: 5px; }
+
+    /* Quick suggestion chips */
+    .quick-chips {
+      padding: 14px 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      color: var(--red);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chip:hover { background: var(--red); color: var(--white); border-color: var(--red); }
+
+    /* Chat window */
+    #chat-messages {
+      height: 380px;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Scrollbar styling */
+    #chat-messages::-webkit-scrollbar { width: 5px; }
+    #chat-messages::-webkit-scrollbar-track { background: transparent; }
+    #chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .msg { display: flex; gap: 10px; align-items: flex-end; max-width: 85%; }
+
+    .msg.bot { align-self: flex-start; }
+    .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+
+    .msg-avatar {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .msg.bot .msg-avatar { background: var(--red); color: var(--white); }
+    .msg.user .msg-avatar { background: var(--gold); color: var(--dark); }
+
+    .msg-bubble {
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    .msg.bot .msg-bubble {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 4px;
+      color: var(--text);
+    }
+
+    .msg.user .msg-bubble {
+      background: var(--red);
+      color: var(--white);
+      border-bottom-right-radius: 4px;
+    }
+
+    /* Chat input */
+    .chat-input-area {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: var(--cream);
+    }
+
+    #chat-input {
+      flex: 1;
+      padding: 12px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.88rem;
+      background: var(--white);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.25s;
+    }
+
+    #chat-input:focus { border-color: var(--gold); }
+
+    #send-btn {
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      padding: 12px 22px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+
+    #send-btn:hover { background: #6a0000; }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 28px;
+      font-size: 0.82rem;
+    }
+
+    footer span { color: var(--gold); }
+
+    /* ============================================
+       RESPONSIVE (basic)
+    ============================================ */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; }
+      .logo { font-size: 1.1rem; }
+      .nav-links button { font-size: 0.72rem; padding: 6px 10px; }
+      .hero-content h1 { font-size: 2.2rem; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; }
+      .menu-page, .offers-page, .contact-page, .help-page { padding: 40px 20px; }
+      .features { padding: 48px 20px; }
+      .gallery { padding: 48px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav>
+    <div class="logo">La Bella <span>Cucina</span></div>
+    <div class="nav-links">
+      <button class="active" onclick="showPage('home', this)">🏠 Home</button>
+      <button onclick="showPage('menu', this)">🍽️ Menu</button>
+      <button onclick="showPage('offers', this)">🎁 Offers</button>
+      <button onclick="showPage('contact', this)">📞 Contact Us</button>
+      <button onclick="showPage('help', this)">💬 Help</button>
+    </div>
+  </nav>
+
+  <!-- ==================== HOME PAGE ==================== -->
+  <div id="page-home" class="page active">
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Taste the Art of Italian Dining</h1>
+        <p>Hand-crafted pasta, wood-fired pizzas & fine wines — made with love since 1998.</p>
+        <button class="btn btn-gold" onclick="showPage('menu', document.querySelectorAll('.nav-links button')[1])">View Our Menu</button>
+        <button class="btn btn-outline" onclick="showPage('contact', document.querySelectorAll('.nav-links button')[3])">Reserve a Table</button>
+      </div>
+    </div>
+
+    <!-- Why Choose Us -->
+    <section class="features">
+      <div class="section-title">
+        <h2>Why Choose Us?</h2>
+        <div class="divider"></div>
+        <p>An experience crafted to perfection, every single visit.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🌿</div>
+          <h3>Fresh Ingredients</h3>
+          <p>We source only the finest local and imported ingredients, fresh every morning.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">👨‍🍳</div>
+          <h3>Expert Chefs</h3>
+          <p>Our chefs trained in Italy bring you authentic flavours from the heart of Rome.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🍷</div>
+          <h3>Fine Wine Selection</h3>
+          <p>Over 80 curated Italian wines paired perfectly with every dish on our menu.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✨</div>
+          <h3>Elegant Ambiance</h3>
+          <p>A warm, romantic setting ideal for family dinners, dates, and celebrations.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="gallery">
+      <div class="section-title">
+        <h2>A Glimpse of Our World</h2>
+        <div class="divider"></div>
+        <p>Every dish tells a story. Come be part of ours.</p>
+      </div>
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Restaurant interior" />
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Delicious dish" />
+        <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=600&q=80" alt="Pasta dish" />
+        <img src="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=600&q=80" alt="Pizza" />
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Fine dining" />
+        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80" alt="Food plating" />
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 <span>La Bella Cucina</span> — All Rights Reserved. Made with ❤️ in Italy.</p>
+    </footer>
+  </div>
+
+  <!-- ==================== MENU PAGE ==================== -->
+  <div id="page-menu" class="page">
+    <div class="menu-page">
+      <div class="section-title">
+        <h2>Our Menu</h2>
+        <div class="divider"></div>
+        <p>Authentic Italian cuisine prepared with passion and tradition.</p>
+      </div>
+
+      <!-- Starters -->
+      <div class="menu-category">
+        <div class="category-header">
+          <h3>🥗 Starters</h3>
+          <div class="category-line"></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Bruschetta al Pomodoro</h4>
+            <p>Toasted bread topped with fresh tomatoes, basil, garlic & extra virgin olive oil.</p>
+          </div>
+          <div class="menu-price">₹180</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Caprese Salad</h4>
+            <p>Fresh mozzarella, ripe tomatoes, basil leaves with balsamic glaze.</p>
+          </div>
+          <div class="menu-price">₹220</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Minestrone Soup</h4>
+            <p>Classic Italian vegetable soup with herbs, pasta and parmesan.</p>
+          </div>
+          <div class="menu-price">₹160</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Arancini (4 pcs)</h4>
+            <p>Crispy risotto balls stuffed with mozzarella and sun-dried tomatoes.</p>
+          </div>
+          <div class="menu-price">₹240</div>
+        </div>
+      </div>
+
+      <!-- Pasta -->
+      <div class="menu-category">
+        <div class="category-header">
+          <h3>🍝 Pasta</h3>
+          <div class="category-line"></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Spaghetti Carbonara</h4>
+            <p>Classic Roman pasta with eggs, pecorino cheese, pancetta and black pepper.</p>
+          </div>
+          <div class="menu-price">₹380</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Penne Arrabbiata</h4>
+            <p>Spicy tomato sauce with garlic, red chillies and fresh basil. Vegan friendly.</p>
+          </div>
+          <div class="menu-price">₹320</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Tagliatelle Bolognese</h4>
+            <p>Slow-cooked beef and pork ragù with fresh tagliatelle and parmesan.</p>
+          </div>
+          <div class="menu-price">₹420</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Pasta Primavera</h4>
+            <p>Seasonal vegetables, cherry tomatoes and fresh herbs in light olive oil sauce.</p>
+          </div>
+          <div class="menu-price">₹340</div>
+        </div>
+      </div>
+
+      <!-- Pizza -->
+      <div class="menu-category">
+        <div class="category-header">
+          <h3>🍕 Wood-Fired Pizzas</h3>
+          <div class="category-line"></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Margherita</h4>
+            <p>San Marzano tomatoes, fresh mozzarella, basil, extra virgin olive oil.</p>
+          </div>
+          <div class="menu-price">₹350</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Quattro Formaggi</h4>
+            <p>Four-cheese blend: mozzarella, gorgonzola, parmesan and ricotta.</p>
+          </div>
+          <div class="menu-price">₹480</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Diavola</h4>
+            <p>Spicy salami, mozzarella, Calabrian chilli oil and fresh basil.</p>
+          </div>
+          <div class="menu-price">₹460</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Funghi e Tartufo</h4>
+            <p>Wild mushrooms, truffle oil, mozzarella and fresh thyme.</p>
+          </div>
+          <div class="menu-price">₹520</div>
+        </div>
+      </div>
+
+      <!-- Desserts -->
+      <div class="menu-category">
+        <div class="category-header">
+          <h3>🍮 Desserts</h3>
+          <div class="category-line"></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Tiramisu</h4>
+            <p>Classic Italian dessert with espresso-soaked ladyfingers and mascarpone cream.</p>
+          </div>
+          <div class="menu-price">₹250</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Panna Cotta</h4>
+            <p>Silky vanilla cream with seasonal berry coulis and mint.</p>
+          </div>
+          <div class="menu-price">₹220</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info">
+            <h4>Gelato (2 scoops)</h4>
+            <p>Choose from Pistachio, Stracciatella, Limone or Chocolate Fondente.</p>
+          </div>
+          <div class="menu-price">₹180</div>
+        </div>
+      </div>
+
+      <!-- Beverages -->
+      <div class="menu-category">
+        <div class="category-header">
+          <h3>☕ Beverages</h3>
+          <div class="category-line"></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info"><h4>Espresso / Americano</h4><p>Single origin Italian roast.</p></div>
+          <div class="menu-price">₹120</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info"><h4>Cappuccino / Latte</h4><p>Creamy milk-based coffee drinks.</p></div>
+          <div class="menu-price">₹150</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info"><h4>Fresh Lemonade</h4><p>Hand-squeezed with mint and honey.</p></div>
+          <div class="menu-price">₹130</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-info"><h4>House Red / White Wine</h4><p>Imported Italian house wine by the glass.</p></div>
+          <div class="menu-price">₹350</div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2025 <span>La Bella Cucina</span> — All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <!-- ==================== OFFERS PAGE ==================== -->
+  <div id="page-offers" class="page">
+    <div class="offers-page">
+      <div class="section-title">
+        <h2>Special Offers</h2>
+        <div class="divider"></div>
+        <p>Exclusive deals crafted for every occasion. Don't miss out!</p>
+      </div>
+
+      <div class="offers-grid">
+        <div class="offer-card">
+          <div class="offer-banner">🍽️ LUNCH SPECIAL</div>
+          <div class="offer-body">
+            <h3>Weekday Lunch Combo</h3>
+            <p>Enjoy any starter + pasta + soft drink for a flat price every Monday to Friday from 12 PM to 3 PM. A great deal for office goers!</p>
+            <span class="offer-badge">Only ₹399 | Mon–Fri 12–3 PM</span>
+          </div>
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-banner">🍕 BUY 1 GET 1</div>
+          <div class="offer-body">
+            <h3>Pizza Tuesday Fiesta</h3>
+            <p>Every Tuesday, order any wood-fired pizza and get a second pizza of equal or lesser value absolutely free. Valid for dine-in only.</p>
+            <span class="offer-badge">Every Tuesday | Dine-In Only</span>
+          </div>
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-banner">🎂 BIRTHDAY TREAT</div>
+          <div class="offer-body">
+            <h3>Birthday Celebration Package</h3>
+            <p>Celebrate your special day with us! Get a complimentary dessert platter and a 15% discount on your entire bill. Show your ID to redeem.</p>
+            <span class="offer-badge">15% Off + Free Dessert</span>
+          </div>
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-banner">👨‍👩‍👧 FAMILY FEAST</div>
+          <div class="offer-body">
+            <h3>Weekend Family Package</h3>
+            <p>Book a table for 4 or more on weekends and enjoy a 20% discount on your total bill, plus complimentary garlic bread for the table.</p>
+            <span class="offer-badge">Sat–Sun | 4+ Guests | 20% Off</span>
+          </div>
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-banner">🌙 DATE NIGHT</div>
+          <div class="offer-body">
+            <h3>Romantic Dinner for Two</h3>
+            <p>Our special candlelit dinner package includes a 3-course meal for two with a glass of wine each and live piano music every Friday evening.</p>
+            <span class="offer-badge">Fridays 7 PM | ₹1,299 for 2</span>
+          </div>
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-banner">📱 APP EXCLUSIVE</div>
+          <div class="offer-body">
+            <h3>First Order Discount</h3>
+            <p>New customers get a flat 25% off their first dine-in order. Just mention code BELLA25 to your waiter when ordering.</p>
+            <span class="offer-badge">Code: BELLA25 | First Visit Only</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2025 <span>La Bella Cucina</span> — All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <!-- ==================== CONTACT PAGE ==================== -->
+  <div id="page-contact" class="page">
+    <div class="contact-page">
+      <div class="section-title">
+        <h2>Contact Us</h2>
+        <div class="divider"></div>
+        <p>We'd love to hear from you. Make a reservation or just say hello!</p>
+      </div>
+
+      <div class="contact-wrap">
+        <!-- Info -->
+        <div class="contact-info">
+          <h3>Get in Touch</h3>
+
+          <div class="info-row">
+            <div class="info-icon">📍</div>
+            <div>
+              <h4>Address</h4>
+              <p>12, Pasta Lane, Koregaon Park<br/>Pune – 411001, Maharashtra</p>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-icon">📞</div>
+            <div>
+              <h4>Phone</h4>
+              <p>+91 98765 43210</p>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-icon">✉️</div>
+            <div>
+              <h4>Email</h4>
+              <p>info@labellacucina.com</p>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-icon">🕐</div>
+            <div>
+              <h4>Opening Hours</h4>
+              <p>Monday – Friday: 12 PM – 11 PM<br/>Saturday – Sunday: 11 AM – 12 AM</p>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-icon">🚗</div>
+            <div>
+              <h4>Parking</h4>
+              <p>Free valet parking available for all guests.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form">
+          <h3>Send us a Message</h3>
+
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="e.g. Rahul Sharma" />
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="e.g. rahul@email.com" />
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+91 XXXXX XXXXX" />
+          </div>
+
+          <div class="form-group">
+            <label>Subject</label>
+            <select>
+              <option value="">Select a subject...</option>
+              <option>Table Reservation</option>
+              <option>Event Booking</option>
+              <option>Feedback</option>
+              <option>Catering Enquiry</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Your Message</label>
+            <textarea placeholder="Write your message here..."></textarea>
+          </div>
+
+          <button class="submit-btn" onclick="handleFormSubmit()">📨 Send Message</button>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2025 <span>La Bella Cucina</span> — All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <!-- ==================== HELP / CHATBOT PAGE ==================== -->
+  <div id="page-help" class="page">
+    <div class="help-page">
+      <div class="section-title">
+        <h2>Help Centre</h2>
+        <div class="divider"></div>
+        <p>Chat with Bella, our virtual assistant. She's always here to help!</p>
+      </div>
+
+      <div class="chatbot-wrap">
+        <!-- Header -->
+        <div class="chat-header">
+          <div class="bot-avatar">🍝</div>
+          <div class="chat-header-info">
+            <h3>Bella – Your Food Assistant</h3>
+            <p><span class="online-dot"></span>Online now — Ask me anything!</p>
+          </div>
+        </div>
+
+        <!-- Quick Chips -->
+        <div class="quick-chips">
+          <button class="chip" onclick="sendChip('What are your timings?')">⏰ Timings</button>
+          <button class="chip" onclick="sendChip('Show me the menu')">🍽️ Menu</button>
+          <button class="chip" onclick="sendChip('Any offers today?')">🎁 Offers</button>
+          <button class="chip" onclick="sendChip('How to make a reservation?')">📅 Reservation</button>
+          <button class="chip" onclick="sendChip('Do you offer home delivery?')">🛵 Delivery</button>
+          <button class="chip" onclick="sendChip('Do you have vegan options?')">🌱 Vegan</button>
+        </div>
+
+        <!-- Chat Messages -->
+        <div id="chat-messages">
+          <!-- Bot greeting message -->
+          <div class="msg bot">
+            <div class="msg-avatar">🤖</div>
+            <div class="msg-bubble">
+              Ciao! 👋 I'm <strong>Bella</strong>, your virtual assistant at <strong>La Bella Cucina</strong>!<br/><br/>
+              I can help you with our <strong>menu</strong>, <strong>timings</strong>, <strong>reservations</strong>, <strong>offers</strong>, <strong>delivery</strong> info, and much more.<br/><br/>
+              What can I do for you today? 😊
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+          <input type="text" id="chat-input" placeholder="Type your message here..." onkeydown="checkEnter(event)" />
+          <button id="send-btn" onclick="handleUserInput()">Send ➤</button>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2025 <span>La Bella Cucina</span> — All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+
+    /* ================================================
+       1. PAGE NAVIGATION
+       - showPage() hides all pages and shows the one clicked
+    ================================================ */
+    function showPage(pageId, clickedBtn) {
+      // Hide all pages
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      // Remove active class from all nav buttons
+      document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+
+      // Show the selected page
+      document.getElementById('page-' + pageId).classList.add('active');
+      // Mark the clicked button as active
+      if (clickedBtn) clickedBtn.classList.add('active');
+
+      // Scroll to top when switching pages
+      window.scrollTo(0, 0);
+    }
+
+    /* ================================================
+       2. CONTACT FORM SUBMIT (static demo)
+    ================================================ */
+    function handleFormSubmit() {
+      alert('✅ Thank you for your message!\nWe will get back to you within 24 hours.\n\n— Team La Bella Cucina');
+    }
+
+    /* ================================================
+       3. CHATBOT – RULE BASED
+       
+       HOW IT WORKS:
+       - User types a message
+       - We convert it to lowercase
+       - We check which keywords it contains
+       - We return the matching reply
+       - If nothing matches → default reply
+    ================================================ */
+
+    // --- RULE TABLE ---
+    // Each rule has: keywords (array) + reply (string)
+    const rules = [
+      {
+        keywords: ['hello', 'hi', 'hey', 'ciao', 'namaste', 'good morning', 'good evening', 'good afternoon'],
+        reply: 'Ciao! 🍝 Welcome to La Bella Cucina! How can I help you today? You can ask me about our <strong>menu</strong>, <strong>timings</strong>, <strong>offers</strong>, <strong>reservations</strong>, and more!'
+      },
+      {
+        keywords: ['menu', 'food', 'dishes', 'items', 'eat', 'what do you serve', 'cuisine'],
+        reply: '🍽️ We serve authentic <strong>Italian cuisine</strong>! Our menu includes:<br/>• 🥗 Starters – Bruschetta, Caprese Salad, Soup<br/>• 🍝 Pasta – Carbonara, Bolognese, Arrabbiata<br/>• 🍕 Wood-fired Pizzas – Margherita, Diavola, Quattro Formaggi<br/>• 🍮 Desserts – Tiramisu, Panna Cotta, Gelato<br/>• ☕ Beverages – Coffee, Wine, Fresh Juices<br/><br/>Click the <strong>Menu</strong> tab above to see full details & prices!'
+      },
+      {
+        keywords: ['price', 'cost', 'how much', 'rate', 'charges'],
+        reply: '💰 Our prices start from:<br/>• Starters: ₹160 – ₹240<br/>• Pasta: ₹320 – ₹420<br/>• Pizzas: ₹350 – ₹520<br/>• Desserts: ₹180 – ₹250<br/>• Beverages: ₹120 – ₹350<br/><br/>Visit the <strong>Menu</strong> tab for the full price list!'
+      },
+      {
+        keywords: ['time', 'timing', 'hours', 'open', 'close', 'when', 'schedule'],
+        reply: '🕐 Our opening hours are:<br/>• <strong>Mon – Fri:</strong> 12:00 PM – 11:00 PM<br/>• <strong>Sat – Sun:</strong> 11:00 AM – 12:00 Midnight<br/><br/>We are open all days of the week! Come visit us. 😊'
+      },
+      {
+        keywords: ['location', 'address', 'where', 'place', 'directions', 'find you', 'located'],
+        reply: '📍 You can find us at:<br/><strong>12, Pasta Lane, Koregaon Park<br/>Pune – 411001, Maharashtra</strong><br/><br/>📞 Call us: <strong>+91 98765 43210</strong><br/>🚗 We offer <strong>free valet parking</strong> for all guests!'
+      },
+      {
+        keywords: ['reservation', 'reserve', 'book', 'table', 'booking', 'seat'],
+        reply: '📅 To make a reservation:<br/>1. Go to the <strong>Contact Us</strong> tab<br/>2. Fill in the form with your name, date & number of guests<br/>3. Select "Table Reservation" as subject<br/><br/>Or call us directly at <strong>+91 98765 43210</strong>. We recommend booking at least 2 hours in advance!'
+      },
+      {
+        keywords: ['offer', 'discount', 'deal', 'promo', 'coupon', 'special', 'today'],
+        reply: '🎁 We have amazing offers running right now!<br/>• 🍕 <strong>Buy 1 Get 1 Pizza</strong> – Every Tuesday<br/>• 🎂 <strong>Birthday Discount</strong> – 15% off + free dessert<br/>• 👨‍👩‍👧 <strong>Family Feast</strong> – 20% off for 4+ guests on weekends<br/>• 🌙 <strong>Date Night</strong> – ₹1,299 for 2 on Fridays<br/>• 📱 <strong>First Visit</strong> – Use code <strong>BELLA25</strong> for 25% off!<br/><br/>Visit the <strong>Offers</strong> tab for complete details!'
+      },
+      {
+        keywords: ['deliver', 'delivery', 'home', 'order online', 'takeout', 'takeaway', 'zomato', 'swiggy'],
+        reply: '🛵 Yes! We offer <strong>home delivery</strong> through:<br/>• 🟠 <strong>Swiggy</strong><br/>• 🔴 <strong>Zomato</strong><br/><br/>You can also call us at <strong>+91 98765 43210</strong> for direct takeaway orders. Delivery is available within a 5 km radius of our restaurant.'
+      },
+      {
+        keywords: ['vegan', 'vegetarian', 'veggie', 'plant', 'no meat'],
+        reply: '🌱 Absolutely! We have plenty of <strong>vegan</strong> and <strong>vegetarian</strong> options:<br/>• Bruschetta al Pomodoro<br/>• Caprese Salad<br/>• Minestrone Soup<br/>• Penne Arrabbiata (Vegan) ✅<br/>• Pasta Primavera (Vegan) ✅<br/>• Margherita Pizza<br/>• All our Gelato flavours<br/><br/>Just let your waiter know and we will ensure no animal products are used!'
+      },
+      {
+        keywords: ['allerg', 'gluten', 'nut', 'dairy', 'lactose', 'intolerance'],
+        reply: '⚠️ We take food allergies very seriously! Please inform your waiter about any allergies when ordering. We can accommodate most dietary needs including <strong>gluten-free pasta</strong>. Our kitchen handles common allergens like nuts, dairy and gluten.'
+      },
+      {
+        keywords: ['parking', 'park', 'car'],
+        reply: '🚗 We offer <strong>complimentary valet parking</strong> for all dining guests! Just hand over your keys at the entrance and our team will take care of your vehicle.'
+      },
+      {
+        keywords: ['wifi', 'wi-fi', 'internet', 'network'],
+        reply: '📶 Yes, we have <strong>free high-speed Wi-Fi</strong> available for all our guests! Ask your waiter for the network details when you are seated.'
+      },
+      {
+        keywords: ['payment', 'pay', 'card', 'upi', 'cash', 'gpay', 'paytm'],
+        reply: '💳 We accept all major payment methods:<br/>• 💵 Cash<br/>• 💳 Credit & Debit Cards (Visa, Mastercard, Amex)<br/>• 📱 UPI (Google Pay, PhonePe, Paytm)<br/>• 🏦 Net Banking<br/><br/>No extra charges on any payment method!'
+      },
+      {
+        keywords: ['contact', 'phone', 'call', 'email', 'reach'],
+        reply: '📞 Here is how to reach us:<br/>• Phone: <strong>+91 98765 43210</strong><br/>• Email: <strong>info@labellacucina.com</strong><br/>• Address: 12, Pasta Lane, Koregaon Park, Pune<br/><br/>Or use the <strong>Contact Us</strong> form in the menu above!'
+      },
+      {
+        keywords: ['thank', 'thanks', 'great', 'awesome', 'nice', 'perfect', 'wonderful'],
+        reply: 'You\'re most welcome! 😊🍝 It was a pleasure helping you. If you have any more questions, I\'m always here. See you at <strong>La Bella Cucina!</strong> Buon Appetito! 🍷'
+      },
+      {
+        keywords: ['bye', 'goodbye', 'see you', 'ciao', 'arrivederci', 'exit'],
+        reply: 'Arrivederci! 👋 Thank you for visiting <strong>La Bella Cucina</strong>. We look forward to serving you soon. Have a wonderful day! 🌟'
+      }
+    ];
+
+    /* ------------------------------------------------
+       getBotReply(userMessage)
+       - Takes the user message as input
+       - Checks each rule's keywords
+       - Returns the matching reply
+    ------------------------------------------------ */
+    function getBotReply(userMessage) {
+      // Convert to lowercase so matching is case-insensitive
+      const msg = userMessage.toLowerCase();
+
+      // Loop through each rule
+      for (let i = 0; i < rules.length; i++) {
+        let rule = rules[i];
+
+        // Check if any keyword from this rule exists in the message
+        for (let j = 0; j < rule.keywords.length; j++) {
+          if (msg.includes(rule.keywords[j])) {
+            return rule.reply;  // Return this rule's reply
+          }
+        }
+      }
+
+      // If NO rule matched, return a default reply
+      return "Hmm, I'm not sure I understand that! 🤔<br/>You can ask me about:<br/>• 🍽️ <strong>Menu & Prices</strong><br/>• ⏰ <strong>Opening Hours</strong><br/>• 📍 <strong>Location</strong><br/>• 📅 <strong>Reservations</strong><br/>• 🎁 <strong>Offers & Discounts</strong><br/>• 🛵 <strong>Delivery</strong><br/><br/>Or call us at <strong>+91 98765 43210</strong>!";
+    }
+
+    /* ------------------------------------------------
+       addMessage(text, sender)
+       - Adds a message bubble to the chat window
+       - sender = 'user' or 'bot'
+    ------------------------------------------------ */
+    function addMessage(text, sender) {
+      const chatWindow = document.getElementById('chat-messages');
+
+      // Create the outer message div
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'msg ' + sender;
+
+      // Create avatar
+      const avatar = document.createElement('div');
+      avatar.className = 'msg-avatar';
+      avatar.textContent = sender === 'bot' ? '🤖' : '😊';
+
+      // Create bubble
+      const bubble = document.createElement('div');
+      bubble.className = 'msg-bubble';
+      bubble.innerHTML = text;   // innerHTML allows <strong>, <br/> tags in replies
+
+      // Put them together
+      msgDiv.appendChild(avatar);
+      msgDiv.appendChild(bubble);
+
+      // Add to chat window
+      chatWindow.appendChild(msgDiv);
+
+      // Auto-scroll to bottom
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    /* ------------------------------------------------
+       showTyping() / hideTyping()
+       - Shows a "..." typing indicator
+    ------------------------------------------------ */
+    function showTyping() {
+      const chatWindow = document.getElementById('chat-messages');
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'msg bot';
+      typingDiv.id = 'typing-indicator';
+      typingDiv.innerHTML = '<div class="msg-avatar">🤖</div><div class="msg-bubble" style="color:#999; font-style:italic;">Bella is typing...</div>';
+      chatWindow.appendChild(typingDiv);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function hideTyping() {
+      const t = document.getElementById('typing-indicator');
+      if (t) t.remove();
+    }
+
+    /* ------------------------------------------------
+       handleUserInput()
+       - Main function called when user sends a message
+    ------------------------------------------------ */
+    function handleUserInput() {
+      const input = document.getElementById('chat-input');
+      const userText = input.value.trim();
+
+      // Do nothing if input is empty
+      if (userText === '') return;
+
+      // Show user's message in chat
+      addMessage(userText, 'user');
+
+      // Clear the input box
+      input.value = '';
+
+      // Show typing indicator
+      showTyping();
+
+      // Simulate a short delay before bot replies (feels more natural)
+      setTimeout(function() {
+        hideTyping();
+        const reply = getBotReply(userText);
+        addMessage(reply, 'bot');
+      }, 800);   // 800ms delay
+    }
+
+    /* ------------------------------------------------
+       checkEnter(event)
+       - Sends message when user presses Enter key
+    ------------------------------------------------ */
+    function checkEnter(event) {
+      if (event.key === 'Enter') {
+        handleUserInput();
+      }
+    }
+
+    /* ------------------------------------------------
+       sendChip(text)
+       - Called when user clicks a quick chip button
+       - Auto-fills and sends the message
+    ------------------------------------------------ */
+    function sendChip(text) {
+      document.getElementById('chat-input').value = text;
+      handleUserInput();
+    }
+
+  </script>
+</body>
+</html>

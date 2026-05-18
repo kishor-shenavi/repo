@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- College Management Lightning Application
+(Validation Rules Based)
+PART 1 — STUDENT OBJECT
+Step 1
+
+Open Salesforce.
+
+Step 2
+
+Go:
+
+Setup → Object Manager
+Step 3
+
+Click:
+
+Create → Custom Object
+Step 4
+
+Fill:
+
+Field	Value
+Label	Student
+Plural Label	Students
+Object Name	Student
+Record Name	Student Name
+
+Tick:
+
+Launch New Custom Tab Wizard
+
+Click:
+
+Save
+Step 5
+
+Choose any tab style.
+
+Click:
+
+Next → Next → Save
+Step 6
+
+Open:
+
+Fields & Relationships
+Step 7
+
+Create:
+
+Roll No
+Type	Number
+Length	5
+Decimal Places	0
+
+Save & New.
+
+Step 8
+
+Create:
+
+Marks
+Type	Number
+Length	3
+Decimal Places	0
+
+Save & New.
+
+Step 9
+
+Create:
+
+Email
+
+| Type | Email |
+
+Save.
+
+Step 10
+
+Open:
+
+Validation Rules
+Step 11
+
+Create Validation Rule.
+
+Rule Name:
+
+MarksValidation
+
+Formula:
+
+OR(
+   Marks__c < 0,
+   Marks__c > 100
+)
+
+Error Message:
+
+Marks should be between 0 and 100
+
+Error Location:
+
+Field → Marks
+
+Tick:
+
+Active
+
+Save.
+
+Step 12
+
+Create Validation Rule.
+
+Rule Name:
+
+RollNoValidation
+
+Formula:
+
+Roll_No__c <= 0
+
+Error Message:
+
+Roll Number must be greater than 0
+
+Error Location:
+
+Field → Roll No
+
+Active → Save.
+
+Step 13
+
+Create Validation Rule.
+
+Rule Name:
+
+EmailValidation
+
+Formula:
+
+NOT(CONTAINS(Email__c, "@"))
+
+Error Message:
+
+Email must contain @ symbol
+
+Error Location:
+
+Field → Email
+
+Active → Save.
+
+Step 14
+
+Create Validation Rule.
+
+Rule Name:
+
+StudentNameValidation
+
+Formula:
+
+ISBLANK(Name)
+
+Error Message:
+
+Student Name cannot be blank
+
+Error Location:
+
+Field → Student Name
+
+Active → Save.
+
+PART 2 — FACULTY OBJECT
+Step 15
+
+Go:
+
+Setup → Object Manager
+Step 16
+
+Click:
+
+Create → Custom Object
+Step 17
+
+Fill:
+
+Field	Value
+Label	Faculty
+Plural Label	Faculties
+Object Name	Faculty
+Record Name	Faculty Name
+
+Tick:
+
+Launch New Custom Tab Wizard
+
+Click:
+
+Save
+Step 18
+
+Choose any tab style.
+
+Click:
+
+Next → Next → Save
+Step 19
+
+Open:
+
+Fields & Relationships
+Step 20
+
+Create:
+
+Faculty ID
+Type	Number
+Length	5
+Decimal Places	0
+
+Tick:
+
+Unique
+
+Save & New.
+
+Step 21
+
+Create:
+
+Salary
+
+| Type | Currency |
+
+Save & New.
+
+Step 22
+
+Create:
+
+Department
+Type	Text
+Length	20
+
+Save & New.
+
+Step 23
+
+Create:
+
+Joining Date
+
+| Type | Date |
+
+Save.
+
+Step 24
+
+Open:
+
+Validation Rules
+Step 25
+
+Create Validation Rule.
+
+Rule Name:
+
+FacultyNameValidation
+
+Formula:
+
+LEN(Name) < 3
+
+Error Message:
+
+Faculty Name must contain at least 3 characters
+
+Error Location:
+
+Field → Faculty Name
+
+Active → Save.
+
+Step 26
+
+Create Validation Rule.
+
+Rule Name:
+
+FacultyIDValidation
+
+Formula:
+
+Faculty_ID__c <= 0
+
+Error Message:
+
+Faculty ID must be greater than 0
+
+Error Location:
+
+Field → Faculty ID
+
+Active → Save.
+
+Step 27
+
+Create Validation Rule.
+
+Rule Name:
+
+SalaryValidation
+
+Formula:
+
+OR(
+   Salary__c < 10000,
+   Salary__c > 500000
+)
+
+Error Message:
+
+Salary must be between 10000 and 500000
+
+Error Location:
+
+Field → Salary
+
+Active → Save.
+
+Step 28
+
+Create Validation Rule.
+
+Rule Name:
+
+DepartmentValidation
+
+Formula:
+
+ISBLANK(Department__c)
+
+Error Message:
+
+Department must be selected
+
+Error Location:
+
+Field → Department
+
+Active → Save.
+
+Step 29
+
+Create Validation Rule.
+
+Rule Name:
+
+JoiningDateValidation
+
+Formula:
+
+Joining_Date__c > TODAY()
+
+Error Message:
+
+Joining Date cannot be future date
+
+Error Location:
+
+Field → Joining Date
+
+Active → Save.
+
+Step 30
+
+Open:
+
+App Launcher
+
+Search:
+
+Students
+
+Open Students tab.
+
+Step 31
+
+Click:
+
+New
+
+Test invalid student data.
+
+Show validation errors.
+
+Step 32
+
+Open:
+
+App Launcher
+
+Search:
+
+Faculties
+
+Open Faculties tab.
+
+Step 33
+
+Click:
+
+New
+
+Test invalid faculty data.
+
+Show validation errors.
+
+Step 34
+
+Enter valid data.
+
+Save.
+
+Show:
+
+saved records
+Edit
+Delete
+
+Assignment complet -->
+</body>
+</html>

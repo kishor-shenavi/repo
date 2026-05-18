@@ -1,0 +1,87 @@
+try{
+    // Creating the Record
+    Bank__c bankAcc = new Bank__c(
+        Name='Neeraj Kharde',
+        Email__c = 'neerajkharde7@gmail.com',
+        DOB__c = Date.valueOf('2005-03-30'),
+        Department__c = 'Credit Card'    
+    );
+    insert bankAcc;
+    
+    System.debug('Account Created');
+    
+    // Checking from Debug Console
+    List<Bank__c> accList = new List<Bank__c>();
+    accList = [SELECT Emp_ID__c, Name, Email__c, DOB__c, Department__c FROM Bank__c LIMIT 2];
+    
+    for(Bank__c a : accList){
+        System.debug(a);
+    }
+    
+}catch(Exception e) {
+    System.debug('Error: '+e.getMessage());
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+try{
+    // Getting all records from Debug Console
+    List<Bank__c> accList = new List<Bank__c>();
+    accList = [SELECT Emp_ID__c, Name, Email__c, DOB__c, Department__c FROM Bank__c LIMIT 5];
+    
+    for(Bank__c a : accList){
+        System.debug(a);
+    }
+    
+    // Fetching the record to update
+    String empId = 'EMP-0002';
+    Bank__c account = [SELECT Emp_ID__c, Name, 
+            Email__c, DOB__c, Department__c FROM Bank__c WHERE Emp_ID__c = :empId];
+    
+    account.Name = 'Neeraj';
+    account.Department__c = 'Debit Card';
+    
+    update account;
+    
+    // Checking if updated
+	accList = [SELECT Emp_ID__c, Name, Email__c, DOB__c, Department__c FROM Bank__c LIMIT 5];
+    for(Bank__c a : accList){
+        System.debug(a);
+    }
+    
+    System.debug('Updated Successfully');
+    
+}catch(Exception e) {
+    System.debug('Error: '+e.getMessage());
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+try{
+    // Getting all records from Debug Console
+    List<Bank__c> accList = new List<Bank__c>();
+    accList = [SELECT Emp_ID__c, Name, Email__c, DOB__c, Department__c FROM Bank__c LIMIT 5];
+    
+    for(Bank__c a : accList){
+        System.debug(a);
+    }
+    
+    // Fetching the record to delete
+    String empId = 'EMP-0002';
+    Bank__c account = [SELECT Emp_ID__c, Name, Email__c, DOB__c, Department__c FROM Bank__c WHERE Emp_ID__c = :empId];
+
+    delete account;
+    
+    // Checking if deleted
+	accList = [SELECT Emp_ID__c, Name, Email__c, DOB__c, Department__c FROM Bank__c LIMIT 5];
+    for(Bank__c a : accList){
+        System.debug(a);
+    }
+    
+    System.debug('Deleted Successfully');
+    
+}catch(Exception e) {
+    System.debug('Error: '+e.getMessage());
+}
+

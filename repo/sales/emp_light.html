@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Employee Management Lightning Application
+(Validation Rules Version)
+Step 1
+
+Open Salesforce.
+
+Step 2
+
+Go:
+
+Setup → Object Manager
+Step 3
+
+Click:
+
+Create → Custom Object
+Step 4
+
+Fill:
+
+Field	Value
+Label	Employee
+Plural Label	Employees
+Object Name	Employee
+Record Name	Employee Name
+
+Tick:
+
+Launch New Custom Tab Wizard
+
+Click:
+
+Save
+Step 5
+
+Choose any tab style.
+
+Click:
+
+Next → Next → Save
+Step 6
+
+Open:
+
+Fields & Relationships
+Step 7
+
+Click:
+
+New
+
+Create:
+
+Employee ID
+Type	Number
+Length	5
+Decimal Places	0
+
+Tick:
+
+Unique
+
+Save & New.
+
+Step 8
+
+Create:
+
+Salary
+
+| Type | Currency |
+
+Save & New.
+
+Step 9
+
+Create:
+
+Email
+
+| Type | Email |
+
+Save & New.
+
+Step 10
+
+Create:
+
+Department
+Type	Text
+Length	20
+
+Save & New.
+
+Step 11
+
+Create:
+
+Joining Date
+
+| Type | Date |
+
+Save.
+
+Step 12
+
+Open:
+
+Validation Rules
+Step 13
+
+Click:
+
+New
+
+Rule Name:
+
+EmployeeNameValidation
+
+Formula:
+
+LEN(Name) < 3
+
+Error Message:
+
+Employee Name must contain at least 3 characters
+
+Error Location:
+
+Field → Employee Name
+
+Tick:
+
+Active
+
+Save.
+
+Step 14
+
+New Validation Rule.
+
+Rule Name:
+
+EmployeeIDValidation
+
+Formula:
+
+Employee_ID__c <= 0
+
+Error Message:
+
+Employee ID must be greater than 0
+
+Error Location:
+
+Field → Employee ID
+
+Active → Save.
+
+Step 15
+
+New Validation Rule.
+
+Rule Name:
+
+SalaryValidation
+
+Formula:
+
+OR(
+   Salary__c < 10000,
+   Salary__c > 500000
+)
+
+Error Message:
+
+Salary must be between 10000 and 500000
+
+Error Location:
+
+Field → Salary
+
+Active → Save.
+
+Step 16
+
+New Validation Rule.
+
+Rule Name:
+
+EmailValidation
+
+Formula:
+
+NOT(CONTAINS(Email__c, "@"))
+
+Error Message:
+
+Email must contain @ symbol
+
+Error Location:
+
+Field → Email
+
+Active → Save.
+
+Step 17
+
+New Validation Rule.
+
+Rule Name:
+
+DepartmentValidation
+
+Formula:
+
+ISBLANK(Department__c)
+
+Error Message:
+
+Department must be selected
+
+Error Location:
+
+Field → Department
+
+Active → Save.
+
+Step 18
+
+New Validation Rule.
+
+Rule Name:
+
+JoiningDateValidation
+
+Formula:
+
+Joining_Date__c > TODAY()
+
+Error Message:
+
+Joining Date cannot be future date
+
+Error Location:
+
+Field → Joining Date
+
+Active → Save.
+
+Step 19
+
+Open:
+
+App Launcher
+
+Search:
+
+Employees
+
+Open:
+
+Employees tab
+Step 20
+
+Click:
+
+New
+
+Test invalid values.
+
+Show validation errors.
+
+Step 21
+
+Enter valid data.
+
+Save.
+
+Show:
+
+saved records
+Edit
+Delete
+
+Assignment complete. -->
+</body>
+</html>

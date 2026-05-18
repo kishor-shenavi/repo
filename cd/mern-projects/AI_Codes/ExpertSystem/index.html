@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IT Help Desk Expert System</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div id="app">
+
+    <!-- Header -->
+    <div id="header">
+      <h2>🖥️ IT Help Desk Expert System</h2>
+      <p>Describe your problem and I'll diagnose it!</p>
+    </div>
+
+    <!-- Chat Messages Area -->
+    <div id="messages"></div>
+
+    <!-- Quick Category Buttons -->
+    <div id="categories">
+      <button class="cat" onclick="sendMsg('wifi not working')">📶 WiFi</button>
+      <button class="cat" onclick="sendMsg('printer not working')">🖨️ Printer</button>
+      <button class="cat" onclick="sendMsg('computer slow')">🐢 Slow PC</button>
+      <button class="cat" onclick="sendMsg('keyboard not working')">⌨️ Keyboard</button>
+      <button class="cat" onclick="sendMsg('screen not working')">🖥️ Screen</button>
+      <button class="cat" onclick="sendMsg('software not opening')">💿 Software</button>
+      <button class="cat" onclick="sendMsg('virus in computer')">🦠 Virus</button>
+      <button class="cat" onclick="sendMsg('forgot password')">🔑 Password</button>
+    </div>
+
+    <!-- Input Row -->
+    <div id="input-row">
+      <input
+        id="user-input"
+        type="text"
+        placeholder="Describe your IT problem..."
+        onkeydown="if(event.key === 'Enter') sendMsg()"
+      />
+      <button id="send-btn" onclick="sendMsg()">Send</button>
+    </div>
+
+  </div>
+
+  <script src="js/rules.js"></script>
+  <script src="js/expert.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+window.location.origin
+
+Additionally for reverse proxy: 
+sudo nano /etc/nginx/sites-available/default
+
+server {
+    listen 80;
+    server_name _;
+
+    # Frontend
+    location / {
+        root /var/www/html;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Reverse proxy to backend VM
+    location /api/ {
+        proxy_pass http://<VM2_PUBLIC_IP>:5000;
+
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+
+If node version problem then:
+    sudo apt remove nodejs -y
+    sudo apt autoremove -y
+    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+    sudo apt install -y nodejs
+    Then again reinstall frontend dependencies
+
+
+VITE_API_URL=
+
+PORT=5000
+MONGO_URI=mongodb+srv://<UName>:<Password>@neeraj.1dztn82.mongodb.net/<DBName>?retryWrites=true&w=majority
+CLIENT_URL=
+
+U is neerajKharde
+P is Neeraj
+
+DBs : blogDB, ecommerceDB, eventDB, studentManageDB, taskManagerDB

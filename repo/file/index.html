@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Page</title>
+
+    <style>
+        body{
+            margin:0;
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:#f4f4f4;
+            font-family:Arial, sans-serif;
+        }
+
+        .box{
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            text-align:center;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+        }
+
+        button{
+            padding:10px 20px;
+            border:none;
+            background:blue;
+            color:white;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:darkblue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h1>Hello World</h1>
+        <p id="text">Click the button</p>
+
+        <button onclick="changeText()">
+            Click Me
+        </button>
+    </div>
+
+    <script>
+        function changeText(){
+            document.getElementById("text").innerHTML =
+            "Button Clicked!";
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- PART 1 — Create VPC
+
+Go to:
+AWS VPC Console
+
+Create VPC with:
+
+Setting	Value
+Resources	VPC and more
+Name	project-vpc
+IPv4 CIDR	10.0.0.0/16
+AZ	1
+Public Subnet	1
+Private Subnet	1 (optional)
+NAT Gateway	None
+DNS	Enabled
+
+Create VPC.
+
+PART 2 — Create Security Group
+
+Go:
+
+EC2 → Security Groups
+
+Create security group:
+
+Setting	Value
+Name	file2
+Description	file transfer
+VPC	project-vpc
+Inbound Rule
+Type	Port	Source
+SSH	22	0.0.0.0/0
+Outbound Rule
+
+Keep default:
+
+All Traffic
+
+Create SG.
+
+PART 3 — Launch VM1
+
+Go:
+
+EC2 → Launch Instance
+VM1 Settings
+Option	Value
+Name	vm1
+AMI	Ubuntu
+Instance Type	t3.micro
+Key Pair	website-key
+VPC	project-vpc
+Subnet	public subnet
+Auto Assign Public IP	Enable
+Security Group	file2
+
+Launch instance.
+
+PART 4 — Launch VM2
+
+Same settings.
+
+Only name changes:
+
+Option	Value
+Name	vm2
+
+Everything else same.
+
+Launch instance.
+
+PART 5 — Collect IP Addresses
+
+After launch:
+
+VM	Public IP	Private IP
+VM1	52.x.x.x	10.x.x.x
+VM2	13.x.x.x	10.x.x.x
+
+IMPORTANT:
+
+Public IP → laptop to VM
+Private IP → VM to VM
+PART 6 — Open WSL
+
+Windows PowerShell:
+
+wsl -d Ubuntu
+PART 7 — Verify PEM File
+
+Go home:
+
+cd ~
+
+Check:
+
+ls -l website-key.pem
+
+Expected:
+
+-r--------
+
+If not:
+
+chmod 400 ~/website-key.pem
+PART 8 — SSH Into VM1
+
+Use VM1 PUBLIC IP.
+
+ssh -i ~/website-key.pem ubuntu@VM1_PUBLIC_IP
+
+Example:
+
+ssh -i ~/website-key.pem ubuntu@52.xx.xx.xx
+PART 9 — Create File In VM1
+
+Inside VM1:
+
+nano securefile.txt
+
+Write:
+
+Secure file transfer between cloud instances.
+
+Save:
+
+CTRL + O
+ENTER
+CTRL + X
+PART 10 — Copy PEM Into VM1
+
+Open NEW WSL terminal.
+
+Run from LOCAL MACHINE:
+
+scp -i ~/website-key.pem ~/website-key.pem ubuntu@VM1_PUBLIC_IP:/home/ubuntu/
+
+This copies PEM into VM1.
+
+PART 11 — Fix Permission Inside VM1
+
+Go back to VM1 terminal.
+
+Run:
+
+chmod 400 ~/website-key.pem
+PART 12 — Transfer File VM1 → VM2
+
+Inside VM1:
+
+Use VM2 PRIVATE IP.
+
+Example:
+
+10.0.0.78
+
+Run:
+
+scp -i ~/website-key.pem securefile.txt ubuntu@VM2_PRIVATE_IP:/home/ubuntu/
+
+Example:
+
+scp -i ~/website-key.pem securefile.txt ubuntu@10.0.0.78:/home/ubuntu/
+
+This is:
+
+secure internal VPC communication
+PART 13 — Verify On VM2
+
+From LOCAL WSL:
+
+ssh -i ~/website-key.pem ubuntu@VM2_PUBLIC_IP
+
+Check:
+
+ls
+
+You should see:
+
+securefile.txt
+
+Open file:
+
+cat securefile.txt
+
+Done.
+
+IMPORTANT CONCEPTS FOR VIVA
+What is VPC?
+
+Private network inside AWS cloud.
+
+What is Security Group?
+
+Virtual firewall controlling traffic.
+
+Why Use Private IP Between VMs?
+
+Secure internal communication inside VPC.
+
+Why Use Public IP?
+
+To access VM from laptop/internet.
+
+What is SCP?
+
+Secure Copy Protocol for encrypted file transfer.
+
+Why chmod 400?
+
+Protects private SSH key permissions.
+
+FINAL ARCHITECTURE
+Laptop
+   ↓ PUBLIC IP
+VM1
+   ↓ PRIVATE IP + SCP
+VM2
+
+This fully satisfies Assignment 2.-->
+</body>
+</html>

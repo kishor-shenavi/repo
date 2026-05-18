@@ -1,0 +1,69 @@
+public class EmailSender{
+    public String fileName{get; set;}
+    public transient Blob fileBody{get; set;} // transient bcz then file doesn't store in View State
+    public String toAddress{get; set;}
+    public String ccAddress{get; set;}
+    public String subject{get; set;}
+    public String msg{get; set;}
+    public String emailMessage{get; set;}
+   
+    public static Boolean isValid(String email) {
+        if (String.isBlank(email)) {
+        return false;
+        }
+
+        Integer atPos = email.indexOf('@');
+        Integer dotPos = email.lastIndexOf('.');
+
+        // Check if '@' and '.' exist
+        if (atPos == -1 || dotPos == -1) {
+        return false;
+        }
+
+        // Check order: '@' must come before '.'
+        if (atPos > dotPos) {
+        return false;
+        }
+
+        // Check something before '@'
+        if (atPos == 0) {
+        return false;
+        }
+
+        // Check something after '.'
+        if (dotPos == email.length() - 1) {
+        return false;
+        }
+
+        return true;
+    }
+    
+    public void sendEmail() {
+        
+        Integer maxFileSize = 2 * 1024 * 1024;
+        if(fileBody == null || fileBody.size() > maxFileSize){
+            msg = 'Attachment should be less than 2MB';
+            return;
+        }
+
+        if(!isValid(toAddress)) {
+            msg = 'Invalid email address!';
+            return;
+        }
+        
+        Messaging.EmailFileAttachment attach = new Messaging.EmailFileAttachment();
+        attach.setFileName(fileName);
+        attach.setBody(fileBody);
+        
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        mail.setToAddresses(new String[]{toAddress});
+        mail.setCcAddresses(new String[]{ccAddress});
+        mail.setSubject(subject);
+        mail.setFileAttachments(new Messaging.EmailFileAttachment[]{attach});
+        mail.setPlainTextBody(emailMessage);
+        
+        Messaging.sendEmail(new Messaging.SingleEmailMessage[]{mail});
+        
+        msg = 'Email Sent Successfully!';
+    }
+}

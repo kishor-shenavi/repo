@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Static Website</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 80%;
+            margin: 60px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff9900;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .info {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #eef2f7;
+            border-radius: 8px;
+        }
+
+        footer {
+            margin-top: 30px;
+            color: gray;
+            font-size: 14px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #ff9900;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #e68a00;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Amazon Web Services (AWS)</h1>
+
+        <h2>Static Website Hosted on EC2 Instance</h2>
+
+        <p>
+            This static website is successfully deployed on an Ubuntu EC2 Instance
+            using the Nginx Web Server.
+        </p>
+
+        <div class="info">
+
+            <p><strong>Cloud Platform:</strong> Amazon AWS</p>
+
+            <p><strong>Service Used:</strong> EC2 (Elastic Compute Cloud)</p>
+
+            <p><strong>Web Server:</strong> Nginx</p>
+
+            <p><strong>Technology:</strong> HTML & CSS</p>
+
+            <p><strong>Deployment Type:</strong> Static Website Hosting</p>
+
+        </div>
+
+        <a href="#" class="btn">Website Running Successfully</a>
+
+        <footer>
+            <p>Cloud Computing Practical Assignment</p>
+        </footer>
+
+    </div>
+<!--FINAL STATIC WEBSITE FLOW FOR PRACTICAL EXAM
+
+This is the workflow you should remember.
+
+STEP 1 — Launch EC2
+
+In Amazon Web Services:
+
+Ubuntu
+t3.micro
+allow:
+SSH (22)
+HTTP (80)
+
+Download:
+
+.pem key
+STEP 2 — Open WSL
+wsl -d Ubuntu
+STEP 3 — SSH Into EC2
+ssh -i ~/website-key.pem ubuntu@PUBLIC_IP
+STEP 4 — Clone GitHub Repo
+git clone YOUR_REPO_LINK
+
+Go inside:
+
+cd repo_name
+STEP 5 — Identify Project Type
+If you see:
+index.html
+style.css
+script.js
+
+→ STATIC WEBSITE
+
+Use:
+
+nginx/apache only
+
+NO npm.
+
+If you see:
+package.json
+server.js
+
+→ NODE APPLICATION
+
+Use:
+
+npm install
+node server.js
+STEP 6 — Install Nginx
+sudo apt update
+sudo apt install nginx -y
+STEP 7 — Start Nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
+STEP 8 — Remove Default Website
+sudo rm -rf /var/www/html/*
+STEP 9 — Deploy Files
+
+For STATIC WEBSITE:
+
+sudo cp -r * /var/www/html/
+STEP 10 — Open Browser
+http://PUBLIC_IP
+
+Website should open. -->
+</body>
+</html>

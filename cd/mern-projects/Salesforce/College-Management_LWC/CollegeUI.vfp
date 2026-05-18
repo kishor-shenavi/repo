@@ -1,0 +1,48 @@
+<apex:page controller="CollegeController" lightningStylesheets="true">
+    <h1 style="color:red;">
+         College Management Lightning Application
+    </h1>
+    
+    <apex:form>
+    	<apex:pageBlock title="Student Block">
+        	<apex:pageBlockSection>
+            	<apex:inputField value="{!student.Roll_Number__c}" label="Roll Number: "/>
+                <apex:inputField label="Name: " value="{!student.Name}"/>
+                <apex:inputField label="Email Id: " value="{!student.Email__c}"/>
+                <apex:inputField label="Marks: " value="{!student.Marks__c}"/>
+            </apex:pageBlockSection>
+            
+            <apex:commandButton value="Add Student" action="{!insertStudent}" reRender="form, message"/>
+            <apex:commandButton value="Update Student" action="{!updateStudent}" reRender="form, message"/>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Student List">
+        	<apex:pageBlockTable value="{!studentList}" var="s" id="form">
+            	<apex:column headerValue="Roll Number" value="{!s.Roll_Number__c}"/>
+                <apex:column headerValue="Name" value="{!s.Name}"/>
+                <apex:column headerValue="Email" value="{!s.Email__c}"/>
+                <apex:column headerValue="Marks" value="{!s.Marks__c}"/>
+                
+                <apex:column>
+                    <apex:commandButton value="Edit" action="{!editStudent}" reRender="form, message">
+                    	<apex:param name="studentId" value="{!s.Id}" assignTo="{!student.Id}"/>
+                    </apex:commandButton>
+                </apex:column>
+                
+				<apex:column>
+                    <apex:commandButton value="Delete" action="{!deleteStudent}" reRender="form, message" >
+                    	<apex:param name="studentId" value="{!s.Id}" assignTo="{!student.Id}"/>
+                    </apex:commandButton>
+                </apex:column>                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="message">
+        	<h3 style="color:green;">
+                {!msg}
+            </h3>
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+</apex:page>

@@ -1,0 +1,54 @@
+<apex:page controller="EmployeeController" lightningStylesheets="true">
+    <h1 style="color:blue;">
+        Employee Management Lightning Web Application
+    </h1>
+    
+    <apex:form id="form">
+    	<apex:pageBlock title="Add Employee">
+        	<apex:pageBlockSection>
+                
+            	<apex:inputField value="{!employee.Name}" label="Name: "/>
+                <apex:inputField value="{!employee.Email__c}" label="Email: "/>
+                <apex:inputField value="{!employee.Joining_Date__c}" label="Joining Date: "/>
+                <apex:inputField value="{!employee.Salary__c}" label="Salary: "/>
+                <apex:inputField value="{!employee.Department__c}" label="Department"/>
+               
+            </apex:pageBlockSection>
+            
+            <apex:commandButton value="Add Employee" action="{!insertEmployee}" reRender="form"/>
+            <apex:commandButton value="Update Employee" action="{!updateEmployee}" reRender="form"/>
+            
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Employee List">
+        	<apex:pageBlockTable value="{!employeeList}" var="e">
+            	<apex:column value="{!e.Name}" headerValue="Name"/>
+                <apex:column value="{!e.Email__c}" headerValue="Email"/>
+                <apex:column value="{!e.Joining_Date__c}" headerValue="Joining Date"/>
+                <apex:column value="{!e.Salary__c}" headerValue="Salary"/>
+                <apex:column value="{!e.Department__c}" headerValue="Department"/>
+                
+                <apex:column>
+                    <apex:commandButton value="Edit" action="{!editEmployee}" reRender="form" immediate="true">
+                    	<apex:param name="employeeId" value="{!e.Id}" assignTo="{!employee.Id}"/>
+                    </apex:commandButton>
+                </apex:column>
+                
+                <apex:column>
+                    <apex:commandButton value="Delete" action="{!deleteEmployee}" reRender="form" immediate="true">
+                    	<apex:param name="employeeId" value="{!e.Id}" assignTo="{!employee.Id}"/>
+                    </apex:commandButton>
+                </apex:column>
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock>
+        	<h3 style="color:red;">
+                {!msg}
+            </h3>
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+</apex:page>

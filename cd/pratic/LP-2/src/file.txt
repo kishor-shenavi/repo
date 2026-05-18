@@ -1,0 +1,29 @@
+
+
+Transferred key file to VM1 using SCP:
+
+scp -i vpc.pem vpc.pem ubuntu@13.xx.xx.xx:/home/ubuntu/
+
+Purpose:
+
+Enable VM1 to securely connect to VM2
+Step 11 — Create Secure File
+
+Inside VM1:
+
+
+Used SCP from VM1 to VM2:
+
+scp -i vpc.pem securefile.txt ubuntu@10.0.3.xxx:/home/ubuntu/
+
+
+Secure File Sharing Successful
+Step 14 — Apply File Permissions
+
+Restricted file access:
+
+chmod 600 securefile.txt
+
+Verified permissions:
+
+ls -l

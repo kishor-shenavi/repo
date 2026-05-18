@@ -1,0 +1,45 @@
+<apex:page controller="StudentController" lightningStylesheets="true">
+    <h1>
+        Student Record Management Application
+    </h1>
+    
+    <apex:form id="form">
+    	<apex:pageBlock title="Add Student">
+        	<apex:pageBlockSection>
+            	<apex:inputField value="{!student.Name}" label="Name: "/>
+                <apex:inputField value="{!student.Class__c}" label="Class: "/>
+                <apex:inputField value="{!student.Roll_Number__c}" label="Roll Number: "/>
+                <apex:inputField value="{!student.Mobile_Number__c}" label="Mobile Number: "/>
+                <apex:commandButton action="{!addStudent}" value="Add Student" reRender="form"/>
+                <apex:commandButton action="{!updateStudent}" value="Update Student" reRender="form"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="List of Students">
+			<apex:pageBlockTable value="{!studentList}" var="s" id="studentTable">
+            	<apex:column value="{!s.Name}" headerValue="Name" />
+                <apex:column value="{!s.Class__c}" headerValue="Class" />
+                <apex:column value="{!s.Roll_Number__c}" headerValue="Roll Number" />
+                <apex:column value="{!s.Mobile_Number__c}" headerValue="Mobile Number" />
+                
+                <apex:column>
+                    <apex:commandButton action="{!editStudent}" value="Edit" reRender="form">
+                    	<apex:param assignTo="{!student.Id}" name="studentId" value="{!s.Id}"/>
+                    </apex:commandButton>
+                </apex:column>
+                
+                <apex:column>
+                	<apex:commandButton action="{!deleteStudent}" value="Delete" reRender="form">
+                    	<apex:param assignTo="{!student.Id}" name="studentId" value="{!s.Id}"/>
+                    </apex:commandButton>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock>
+        	<h3 style="color:red">
+                {!msg}
+            </h3>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

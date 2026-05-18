@@ -1,0 +1,45 @@
+<apex:page controller="ProductController" lightningStylesheets="true">
+	<h1 style="color:orange">
+        Product Management Application
+    </h1>
+    <apex:form id="form">
+    	<apex:pageBlock title="Add Product">
+        	<apex:pageBlockSection>
+            	<apex:inputField label="Serial Number:" value="{!product.Serial_Number__c}"/>
+                <apex:inputField label="Product Name:" value="{!product.Name}"/>
+                <apex:inputField label="Manufacture Date: " value="{!product.Manufacture_Date__c}"/>
+                <apex:inputField label="Expiry Date: " value="{!product.Expiry_Date__c}"/>
+                <apex:commandButton value="Add Product" reRender="form" action="{!insertProduct}"/>
+                <apex:commandButton action="{!updateProduct}" reRender="form" value="Update Product"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Product List">
+        	<apex:pageBlockTable value="{!productList}" var="p">
+            	<apex:column value="{!p.Serial_Number__c}" headerValue="Serial Number"/>
+                <apex:column value="{!p.Name}" headerValue="Name"/>
+                <apex:column value="{!p.Manufacture_Date__c}" headerValue="Manufacture Date"/>
+                <apex:column value="{!p.Expiry_Date__c}" headerValue="Expiry Date"/>
+                
+                <apex:column>
+                    <apex:commandButton action="{!editProduct}" value="Edit" reRender="form">
+                    	<apex:param name="productId" value="{!p.Id}" assignTo="{!product.Id}"/>
+                    </apex:commandButton>
+                </apex:column>
+                
+                <apex:column>
+                    <apex:commandButton action="{!deleteProduct}" value="Delete" reRender="form">
+                    	<apex:param name="productId" value="{!p.Id}" assignTo="{!product.Id}"/>
+                    </apex:commandButton>
+                </apex:column>
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock>
+        	<h3 style="color:red;margin:2px;">
+                {!msg}
+            </h3>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

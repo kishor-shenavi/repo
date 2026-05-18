@@ -1,0 +1,22 @@
+<apex:page controller="EmailSender" lightningStylesheets="true">
+    <h1>
+        Send Email
+    </h1>
+    <apex:form enctype="multipart/form-data">
+    	<apex:pageBlock>
+        	<apex:pageBlockSection>
+                <apex:inputText value="{!toAddress}" label="To: "/>
+                <apex:inputText value="{!ccAddress}" label="CC: "/>
+                <apex:inputText value="{!subject}" label="Subject: "/>
+                <apex:inputTextarea value="{!emailMessage}" label="Body: "/>
+                <apex:inputFile value="{!fileBody}" fileName="{!fileName}"/>
+            </apex:pageBlockSection>
+            <apex:commandButton value="Send Email" action="{!sendEmail}"/>
+            <apex:pageBlockSection>
+            	<h3>
+                    {!msg}
+                </h3>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

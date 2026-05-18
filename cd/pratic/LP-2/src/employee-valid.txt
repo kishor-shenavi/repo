@@ -1,0 +1,164 @@
+Employee Management Lightning App
+Step 1: Create Custom Object
+
+Go to:
+
+Setup → Object Manager → Create → Custom Object
+Property	Value
+Label	Employee
+Plural Label	Employees
+Object Name	Employee
+Record Name	Employee Name
+Data Type	Text
+
+Click:
+
+Save
+Step 2: Create Fields
+
+Go to:
+
+Employee → Fields & Relationships → New
+
+Create these fields:
+
+Field Label	Type	API Name
+Employee_ID	Number	Employee_ID__c
+Salary	Currency	Salary__c
+Email	Email	Email__c
+Department	Picklist	Department__c
+Joining_Date	Date	Joining_Date__c
+Department Picklist Values
+
+Choose:
+
+Enter values, with each value separated by a new line
+
+Add:
+
+HR
+IT
+Finance
+Marketing
+
+Save.
+
+Step 3: Validation Rules
+
+Go to:
+
+Employee → Validation Rules → New
+1. Employee Name Validation
+
+Rule Name:
+
+EmployeeNameValidation
+
+Formula:
+
+OR(
+    ISBLANK(Name),
+    LEN(Name) < 3
+)
+
+Error Message:
+
+Employee Name must contain at least 3 characters
+2. Employee ID Validation
+
+Rule Name:
+
+EmployeeIDValidation
+
+Formula:
+
+Employee_ID__c <= 0
+
+Error Message:
+
+Employee ID must be greater than 0
+3. Salary Validation
+
+Rule Name:
+
+SalaryValidation
+
+Formula:
+
+OR(
+    Salary__c < 10000,
+    Salary__c > 500000
+)
+
+Error Message:
+
+Salary must be between 10,000 and 500,000
+4. Email Validation
+
+If Email field type is Email, Salesforce automatically validates email format.
+
+No extra validation needed.
+
+5. Department Validation
+
+Rule Name:
+
+DepartmentValidation
+
+Formula:
+
+ISBLANK(TEXT(Department__c))
+
+Error Message:
+
+Please select Department
+6. Joining Date Validation
+
+Rule Name:
+
+JoiningDateValidation
+
+Formula:
+
+Joining_Date__c > TODAY()
+
+Error Message:
+
+Joining Date cannot be a future date
+Step 4: Make Employee ID Unique
+
+Go to:
+
+Employee_ID__c → Edit
+
+Check:
+
+Unique
+
+Save.
+
+Step 5: Create Tab
+
+Go to:
+
+Setup → Tabs → New
+
+Select:
+
+Employee
+
+Choose any tab style.
+
+Save.
+
+Step 6: Create Lightning App
+
+Go to:
+
+Setup → App Manager → New Lightning App
+
+App Name:
+
+Employee Management System
+
+Click Next.

@@ -1,0 +1,58 @@
+public class EmployeeController {
+    public Employee__c employee {get; set;}
+    public List<Employee__c> employeeList {get; set;}
+    public String msg {get; set;}
+    
+    // Constructor
+    public EmployeeController(){
+        employee = new Employee__c();
+        employeeList = [SELECT Emp_ID__c, Name, Email__c, Joining_Date__c, Department__c, Salary__c FROM Employee__c];
+    }
+    
+    // Inserting Employee Record
+    public void insertEmployee(){
+        try{
+            employee.Id = null;
+            insert employee;
+            
+            employee = new Employee__c();
+            employeeList = [SELECT Emp_ID__c, Name, Email__c, Joining_Date__c, Department__c, Salary__c FROM Employee__c];
+            msg = 'Inserted Successfully';
+
+        }catch(Exception e) {
+            msg = 'Error: '+e.getMessage();
+        }
+    }
+    
+    // Updating Employee Record
+    public void updateEmployee(){
+        try{
+            update employee;
+            employee = new Employee__c();
+            employeeList = [SELECT Emp_ID__c, Name, Email__c, Joining_Date__c, Department__c, Salary__c FROM Employee__c];
+            msg = 'Updated Successfully';
+        }catch(Exception e) {
+            msg = 'Error: '+e.getMessage();
+        }
+    }
+    
+    public void editEmployee(){
+        employee = [SELECT Emp_ID__c, Name, Email__c, 
+                    Joining_Date__c, Department__c, Salary__c FROM Employee__c 
+                    WHERE Id = :employee.Id];
+    }
+    
+    // Deleting Employee Record
+    public void deleteEmployee(){
+        try{
+            delete [SELECT Id FROM Employee__c
+                   WHERE Id = :employee.Id LIMIT 1];
+            
+            employeeList = [SELECT Emp_ID__c, Name, Email__c, Joining_Date__c, Department__c, Salary__c 
+                            FROM Employee__c];
+            msg = 'Deleted Successfully';
+        }catch(Exception e) {
+            msg = 'Error: '+e.getMessage();
+        }
+    }
+}

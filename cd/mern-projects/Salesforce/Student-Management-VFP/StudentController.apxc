@@ -1,0 +1,64 @@
+public class StudentController {
+    public Student__c student{get; set;}
+    public List<Student__c> studentList {get; set;}
+    public String msg {get; set;}
+    
+    public StudentController(){
+        student = new Student__c();
+        studentList = [SELECT Id, Name, Class__c, Roll_Number__c, Mobile_Number__c FROM Student__c]; 
+    }
+    
+    public void addStudent(){
+        try{
+            // Insert student
+            student.Id = null;
+            insert student;
+            
+            // Clear the UI after inserting student
+            student = new Student__c();
+            
+            // Update student List
+            studentList = [SELECT Id, Name, Class__c, Roll_Number__c, Mobile_Number__c FROM Student__c];
+            
+            msg = 'Student record inserted successfully';
+        }catch(Exception e){
+            msg = 'Error: ' + e.getMessage();
+        }
+    }
+    
+    public void deleteStudent(){
+        try{
+            // Delete the student
+            delete [SELECT Id FROM Student__c WHERE Id = :student.Id];
+            
+            // Update student List
+            studentList = [SELECT Id, Name, Class__c, Roll_Number__c, Mobile_Number__c FROM Student__c];
+            
+            msg = 'Student record deleted successfully';
+        }catch(Exception e){
+            msg = 'Error: ' + e.getMessage();
+        }
+    }
+    
+    public void updateStudent(){
+        try{
+            // Update student
+            update student;
+            
+            // Clear the UI after updating student
+            student = new Student__c();
+            
+            // Update student List
+            studentList = [SELECT Id, Name, Class__c, Roll_Number__c, Mobile_Number__c FROM Student__c];
+            
+            msg = 'Student record updated successfully';
+        }catch(Exception e){
+            msg = 'Error: '+ e.getMessage();
+        }
+    }
+    
+    public void editStudent(){
+        student = [SELECT Id, Name, Class__c, Roll_Number__c, Mobile_Number__c FROM Student__c WHERE Id = :student.Id];
+        msg = 'Editing Student data...';
+    }
+}

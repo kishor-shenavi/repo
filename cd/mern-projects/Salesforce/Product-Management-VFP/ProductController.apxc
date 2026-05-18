@@ -1,0 +1,48 @@
+public class ProductController {
+    public Product__c product{get; set;}
+    public List<Product__c> productList{get; set;}
+    public String msg{get; set;}
+    
+    public ProductController(){
+        product = new Product__c();
+        productList = [SELECT Id, Serial_Number__c, Name, Manufacture_Date__c, Expiry_Date__c FROM Product__c];
+    }
+    
+    public void insertProduct() {
+        try{
+            product.Id = null;
+            insert product;
+            product = new Product__c();
+            productList = [SELECT Id, Serial_Number__c, Name, Manufacture_Date__c, Expiry_Date__c FROM Product__c];
+            msg = 'Record Inserted Successfully';
+        }catch(Exception e){
+            msg = 'Error: ' + e.getMessage();
+        }
+    }
+    
+    public void updateProduct() {
+        try{
+            update product;
+            product = new Product__c();
+            productList = [SELECT Id, Serial_Number__c, Name, Manufacture_Date__c, Expiry_Date__c FROM Product__c];
+            msg = 'Record Updated Successfully';
+        }catch(Exception e){
+            msg = 'Error: ' + e.getMessage();
+        }
+    }
+    
+    public void deleteProduct() {
+        try{
+            delete [SELECT Id FROM Product__c WHERE Id = :product.Id];
+            productList = [SELECT Id, Serial_Number__c, Name, Manufacture_Date__c, Expiry_Date__c FROM Product__c];
+        	msg = 'Record Deleted Successfully';
+        }catch(Exception e){
+            msg = 'Error: ' + e.getMessage();
+        }
+    }
+    
+    public void editProduct() {
+        product = [SELECT Id, Serial_Number__c, Name, Manufacture_Date__c, Expiry_Date__c FROM Product__c WHERE Id = :product.Id];
+		msg = 'Editing Product Data...';    
+    }
+}
